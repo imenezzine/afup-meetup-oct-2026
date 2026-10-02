@@ -1,0 +1,282 @@
+@import 'reveal.js/dist/reveal.css';
+@import 'reveal.js/dist/theme/white.css';
+@import 'reveal.js/plugin/highlight/monokai.css';
+
+$navy: #142B43;
+$dark: #0f172a;
+$red: #F04444;
+$violet: #7C3AED;
+$grey: #64748B;
+$green: #059669;
+$danger: #DC2626;
+$amber: #D97706;
+$border: #D9DEE5;
+
+figcaption {
+    font-size: 0.4em;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+    color: $navy;
+    text-transform: none;
+}
+
+.reveal pre {
+    width: 100%;
+    font-size: 0.42em;
+    box-shadow: none;
+}
+
+.reveal .subtitle {
+    color: $grey;
+    font-size: 0.8em;
+}
+
+.reveal .eyebrow {
+    margin: 0 0 0.3em;
+    color: $red;
+    font-size: 0.5em;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Titre de chapitre */
+.reveal .chapter-number {
+    color: $red;
+    font-size: 2.4em;
+    font-weight: 800;
+    line-height: 1;
+    margin: 0;
+}
+
+/* Encadrés */
+.reveal .callout {
+    margin-top: 1em;
+    padding: 0.6em 0.9em;
+    background: #F0FDF4;
+    border-left: 4px solid $green;
+    font-size: 0.7em;
+    text-align: left;
+}
+
+.reveal .callout.warn {
+    background: #FFFBEB;
+    border-left-color: $amber;
+}
+
+.reveal .callout.danger {
+    background: #FEF2F2;
+    border-left-color: $danger;
+}
+
+/* Rangée de cartes */
+.card-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 0.8em;
+}
+
+.reveal .card {
+    flex: 1;
+    padding: 18px 20px;
+    border: 1px solid $border;
+    border-top: 4px solid $red;
+    border-radius: 8px;
+    text-align: left;
+
+    h4 {
+        margin: 0 0 0.4em;
+        color: $navy;
+        font-size: 0.7em;
+        text-transform: none;
+    }
+
+    p {
+        margin: 0;
+        color: #526274;
+        font-size: 0.55em;
+        line-height: 1.4;
+    }
+
+    code {
+        font-size: 0.95em;
+    }
+}
+
+.reveal .card.green { border-top-color: $green; }
+.reveal .card.violet { border-top-color: $violet; }
+.reveal .card.amber { border-top-color: $amber; }
+.reveal .card.grey { border-top-color: $grey; }
+
+/* Tableaux */
+.reveal table.compare {
+    font-size: 0.55em;
+    margin-top: 0.6em;
+
+    th {
+        color: $navy;
+        border-bottom: 2px solid $navy;
+    }
+
+    td {
+        border-bottom: 1px solid $border;
+    }
+
+    .good { color: $green; font-weight: 700; }
+    .bad { color: $danger; font-weight: 700; }
+    .meh { color: $amber; font-weight: 700; }
+}
+
+/* Avant / après */
+.before-after {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+
+    > div {
+        flex: 1;
+        text-align: left;
+    }
+
+    pre {
+        font-size: 0.38em;
+    }
+}
+
+.reveal .label-before,
+.reveal .label-after {
+    margin: 0;
+    font-size: 0.5em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.reveal .label-before { color: $danger; }
+.reveal .label-after { color: $green; }
+
+/* Frise chronologique */
+.reveal .timeline {
+    list-style: none;
+    margin: 0.4em 0 0;
+    padding: 0;
+    font-size: 0.5em;
+    text-align: left;
+
+    li {
+        position: relative;
+        padding: 0.3em 0 0.3em 1.6em;
+        border-left: 3px solid $border;
+    }
+
+    li::before {
+        content: "";
+        position: absolute;
+        left: -9px;
+        top: 0.65em;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: $red;
+    }
+
+    .date {
+        display: inline-block;
+        min-width: 7.5em;
+        color: $red;
+        font-weight: 700;
+    }
+}
+
+/* Citations de review */
+.reveal blockquote.review {
+    width: 85%;
+    padding: 0.6em 1em;
+    font-size: 0.6em;
+    text-align: left;
+    background: #F8FAFC;
+    border-left: 4px solid $violet;
+    box-shadow: none;
+
+    cite {
+        display: block;
+        margin-top: 0.6em;
+        color: $grey;
+        font-size: 0.8em;
+        font-style: normal;
+    }
+}
+
+/* Slide speaker */
+.speakers-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 40px 70px;
+    text-align: left;
+}
+
+.speakers-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 120px);
+}
+
+.speaker-card {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px 50px;
+    text-align: center;
+}
+
+.speaker-photo {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    border: 2px solid $red;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.reveal .speaker-content h3 {
+    margin: 0;
+    color: $navy;
+    font-size: 1.35em;
+    font-weight: 700;
+}
+
+.speaker-line {
+    width: 55px;
+    height: 4px;
+    background: $red;
+    margin: 12px auto 16px;
+    border-radius: 2px;
+}
+
+.reveal .speaker-role {
+    margin: 0;
+    color: #526274;
+    font-size: 0.75em;
+}
+
+.speaker-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+    color: #526274;
+    font-size: 0.65em;
+}

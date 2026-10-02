@@ -1,0 +1,36 @@
+<section>
+    <h3>Ce qui part vraiment… et ce qui est écrit</h3>
+    <div class="before-after">
+        <div>
+            <p class="label-before">Échange réel</p>
+            <pre><code class="language-http" data-trim>
+POST /oauth/token
+Authorization: Basic bXktYXBwOnMzY3IzdA==
+
+grant_type=client_credentials
+&amp;client_id=my-app&amp;client_secret=s3cr3t
+
+200 OK
+{"access_token":"eyJhbGciOi...",
+ "token_type":"Bearer","expires_in":3600}
+            </code></pre>
+        </div>
+        <div class="fragment">
+            <p class="label-after">Fichier .har</p>
+            <pre><code class="language-http" data-trim>
+POST /oauth/token
+Authorization: [REDACTED]
+
+grant_type=client_credentials
+&amp;client_id=my-app&amp;client_secret=%5BREDACTED%5D
+
+200 OK
+{"access_token":"[REDACTED]",
+ "token_type":"Bearer","expires_in":3600}
+            </code></pre>
+        </div>
+    </div>
+    <aside class="notes">
+        Seules les valeurs sensibles sont remplacées. Tout le reste reste exploitable dans le test : token_type, expires_in, le client_id.
+    </aside>
+</section>

@@ -1,0 +1,20 @@
+<section>
+    <h3>Relire un fichier du recorder sans le recorder</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-9|6-9">
+use Symfony\Component\HttpClient\Recorder\Matcher\DefaultMatcher;
+use Symfony\Component\HttpClient\Recorder\Redactor\DefaultRedactor;
+use Symfony\Component\HttpClient\Test\HarFileResponseFactory;
+
+$client = new MockHttpClient(new HarFileResponseFactory(
+    $file,
+    new DefaultMatcher(new DefaultRedactor()),
+));
+    </code></pre>
+    <p class="fragment subtitle" style="font-size: 0.6em;">
+        Par défaut, <code>HarFileResponseFactory</code> ne masque rien, pour que les fichiers HAR écrits à la main continuent de matcher.
+    </p>
+    <p class="fragment callout">
+        Mode <code>Record</code> : le fichier est vidé <b>une seule fois par chemin et par processus</b>.
+        Un fichier partagé par toute une classe cumule donc les entrées de chacun de ses tests.
+    </p>
+</section>

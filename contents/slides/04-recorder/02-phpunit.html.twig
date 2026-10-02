@@ -1,0 +1,15 @@
+<section>
+    <p class="eyebrow">Étape 1</p>
+    <h3>Déclarer l'extension PHPUnit</h3>
+    <pre><code class="language-xml" data-trim data-line-numbers="1-7|3|4">
+&lt;!-- phpunit.dist.xml --&gt;
+&lt;extensions&gt;
+    &lt;bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"&gt;
+        &lt;parameter name="http-recorder-directory" value="tests/fixtures/records"/&gt;
+    &lt;/bootstrap&gt;
+&lt;/extensions&gt;
+    </code></pre>
+    <p class="subtitle" style="font-size: 0.6em;">
+        Le paramètre est optionnel : par défaut <code>tests/fixtures/records/</code>, relatif au fichier de configuration PHPUnit.
+    </p>
+</section>

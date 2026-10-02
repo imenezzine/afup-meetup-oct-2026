@@ -1,0 +1,28 @@
+<section>
+    <p class="eyebrow">Étape 3</p>
+    <h3>Annoter le test</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-15|6|9-13">
+use Symfony\Bridge\PhpUnit\Attribute\UseRecord;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class GetRandomControllerTest extends WebTestCase
+{
+    #[UseRecord(recordIfMissing: true)]
+    public function testRandom(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/random');
+
+        $this->assertResponseIsSuccessful();
+    }
+}
+    </code></pre>
+    <ol style="font-size: 0.55em;">
+        <li class="fragment">1<sup>er</sup> lancement : vrais appels, écriture de <code>GetRandomControllerTest/testRandom.har</code></li>
+        <li class="fragment">On commite le fichier</li>
+        <li class="fragment">Lancements suivants : rejeu, zéro réseau</li>
+    </ol>
+    <aside class="notes">
+        Le fichier est créé à côté du test, dans un dossier au nom de la classe. Une fois commité, on peut retirer recordIfMissing pour qu'un appel inattendu fasse échouer le test.
+    </aside>
+</section>

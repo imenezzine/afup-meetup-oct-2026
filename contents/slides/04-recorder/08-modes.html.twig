@@ -1,0 +1,40 @@
+<section>
+    <h2>Les modes</h2>
+    <table class="compare">
+        <thead>
+            <tr>
+                <th style="width: 30%">Mode</th>
+                <th>Comportement</th>
+                <th style="width: 28%">Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="fragment">
+                <td><code>Replay</code></td>
+                <td>Rejoue le <code>.har</code>. Aucune entrée trouvée : <code>HarEntryNotFoundException</code>, <b>jamais de réseau</b></td>
+                <td>Défaut avec <code>#[UseRecord]</code>, CI</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>Replay</code> + <code>recordIfMissing</code></td>
+                <td>Rejoue ; si l'entrée manque, fait le vrai appel et l'ajoute au fichier</td>
+                <td>Premier enregistrement, nouvel appel</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>Record</code></td>
+                <td>Toujours le vrai appel ; réécrit le fichier</td>
+                <td>Rafraîchir les fixtures</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>Passthrough</code></td>
+                <td>Ne fait rien : la requête passe telle quelle</td>
+                <td>Défaut sans attribut et hors PHPUnit</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="fragment callout">
+        <b>Fail closed</b> : par défaut, un test qui rejoue ne touche <b>jamais</b> le réseau. Enregistrer est un opt-in explicite.
+    </p>
+    <aside class="notes">
+        Pourquoi fail closed : si le mode par défaut enregistrait les entrées manquantes, renommer une URL dans un test appellerait le vrai service en silence.
+    </aside>
+</section>

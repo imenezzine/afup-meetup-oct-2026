@@ -1,0 +1,20 @@
+<section>
+    <h3>Adapter à votre API</h3>
+    <pre><code class="language-yaml" data-trim data-line-numbers="1-13|5-8|9|10-13">
+framework:
+    http_client:
+        recorder:
+            enabled: true
+            redact:
+                headers: ['X-Custom-Secret']
+                query: ['sig']        # query string et formulaires
+                body: ['pin']         # JSON et formulaires
+                except: ['code']      # retirer un nom des listes
+            # ou remplacer complètement les briques
+            redactor: ~               # service RedactorInterface
+            matcher: ~                # service MatcherInterface
+    </code></pre>
+    <p class="fragment subtitle" style="font-size: 0.6em;">
+        <code>except</code> : quand <code>code</code> n'est pas un secret dans vos tests, mais que vous en avez besoin.
+    </p>
+</section>

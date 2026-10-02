@@ -1,0 +1,23 @@
+<section>
+    <h3>Sans framework, sans PHPUnit</h3>
+    <pre><code class="language-php" data-trim data-line-numbers>
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\Recorder\RecorderConfiguration;
+use Symfony\Component\HttpClient\Recorder\RecorderMode;
+use Symfony\Component\HttpClient\Recorder\Store\FilesystemStore;
+use Symfony\Component\HttpClient\RecorderHttpClient;
+
+$client = new RecorderHttpClient(
+    HttpClient::create(),
+    new FilesystemStore(),
+    new RecorderConfiguration(RecorderMode::Record, '/path/to/file.har'),
+);
+    </code></pre>
+    <div class="card-row" style="font-size: 0.9em;">
+        <div class="card fragment"><h4>Configuration</h4><p><code>RecorderConfigurationInterface</code></p></div>
+        <div class="card violet fragment"><h4>Matcher</h4><p><code>MatcherInterface</code></p></div>
+        <div class="card amber fragment"><h4>Redactor</h4><p><code>RedactorInterface</code></p></div>
+        <div class="card green fragment"><h4>Store</h4><p><code>StoreInterface</code></p></div>
+    </div>
+    <p class="fragment subtitle" style="font-size: 0.55em;">Quatre points d'extension, tous autowirables.</p>
+</section>

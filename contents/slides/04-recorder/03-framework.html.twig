@@ -1,0 +1,19 @@
+<section>
+    <p class="eyebrow">Étape 2</p>
+    <h3>Activer le recorder en environnement de test</h3>
+    <pre><code class="language-yaml" data-trim>
+# config/packages/framework.yaml
+when@test:
+    framework:
+        http_client:
+            recorder:
+                enabled: true
+    </code></pre>
+    <p class="fragment callout">
+        Le recorder décore <code>http_client.transport</code>, au plus près du réseau :
+        <b>tous</b> les clients (par défaut et scopés) sont enregistrés, avec des URLs absolues, dans un seul fichier par test.
+    </p>
+    <aside class="notes">
+        Sans attribut sur le test, et hors PHPUnit, le recorder est en mode Passthrough : il ne fait rien de spécial.
+    </aside>
+</section>

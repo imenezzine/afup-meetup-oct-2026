@@ -1,0 +1,18 @@
+<section>
+    <h3>Même requête, réponses différentes</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-6|2|3">
+// Enregistré : un retry après une erreur serveur
+$client->request('GET', 'https://api.example.com/flaky')->getContent(false); // 500
+$client->request('GET', 'https://api.example.com/flaky')->getContent(false); // 200
+
+// Au rejeu : 500, puis 200, puis 200 (la dernière réponse est resservie)
+    </code></pre>
+    <ul style="font-size: 0.65em;">
+        <li class="fragment">Les entrées sont <b>ajoutées</b> dans l'ordre, jamais écrasées</li>
+        <li class="fragment">Rejouées <b>dans l'ordre</b> : retry (500 → 200), polling (202 → 200)</li>
+        <li class="fragment">Le recorder étant au niveau du transport, chaque tentative de <code>RetryableHttpClient</code> est enregistrée</li>
+    </ul>
+    <aside class="notes">
+        Au départ, une nouvelle entrée écrasait l'ancienne : seul le 200 restait, et la logique de retry n'était jamais testée au rejeu.
+    </aside>
+</section>

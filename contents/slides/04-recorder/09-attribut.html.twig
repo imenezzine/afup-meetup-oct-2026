@@ -1,0 +1,21 @@
+<section>
+    <h3>Toutes les formes de <code>#[UseRecord]</code></h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-2|4-5|7-8|10-12|14-16">
+// ./GetRandomControllerTest/testRandom.har, à côté du test
+#[UseRecord]
+
+// Toujours enregistrer pour rafraîchir le fichier
+#[UseRecord(mode: RecorderMode::Record)]
+
+// Nom de fichier personnalisé, relatif au test
+#[UseRecord('my_record.har')]
+
+// Relatif à http-recorder-directory (préfixe @), ou absolu
+#[UseRecord('@shared/my_record.har')]
+#[UseRecord('/var/fixtures/my_record.har')]
+
+// Sur la classe : s'applique à chaque méthode (l'attribut de méthode gagne)
+#[UseRecord]
+class GetRandomControllerTest extends WebTestCase {}
+    </code></pre>
+</section>

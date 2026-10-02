@@ -1,0 +1,46 @@
+<section>
+    <h3>Où se place le recorder ?</h3>
+    <svg viewBox="0 0 964 330" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-height: 420px;" font-family="sans-serif" role="img" aria-label="Chaîne de clients HTTP : votre code, http_client, RecorderHttpClient, transport, API tierce">
+        <defs>
+            <marker id="arr-pos" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="#64748B"/>
+            </marker>
+        </defs>
+
+        <rect x="10" y="40" width="150" height="84" rx="10" fill="#F8FAFC" stroke="#D9DEE5" stroke-width="1.5"/>
+        <text x="85" y="76" text-anchor="middle" fill="#142B43" font-size="18" font-weight="bold">Votre code</text>
+        <text x="85" y="100" text-anchor="middle" fill="#64748B" font-size="14">service, contrôleur</text>
+
+        <rect x="196" y="40" width="150" height="84" rx="10" fill="#F8FAFC" stroke="#D9DEE5" stroke-width="1.5"/>
+        <text x="271" y="76" text-anchor="middle" fill="#142B43" font-size="18" font-weight="bold">http_client</text>
+        <text x="271" y="100" text-anchor="middle" fill="#64748B" font-size="14">scoped, retry…</text>
+
+        <rect x="382" y="40" width="200" height="84" rx="10" fill="#FEF2F2" stroke="#F04444" stroke-width="2.5"/>
+        <text x="482" y="76" text-anchor="middle" fill="#142B43" font-size="17" font-weight="bold">RecorderHttpClient</text>
+        <text x="482" y="100" text-anchor="middle" fill="#F04444" font-size="14" font-weight="bold">nouveau</text>
+
+        <rect x="618" y="40" width="150" height="84" rx="10" fill="#F8FAFC" stroke="#D9DEE5" stroke-width="1.5"/>
+        <text x="693" y="76" text-anchor="middle" fill="#142B43" font-size="18" font-weight="bold">Transport</text>
+        <text x="693" y="100" text-anchor="middle" fill="#64748B" font-size="14">curl, amp…</text>
+
+        <rect x="804" y="40" width="150" height="84" rx="10" fill="#0f172a"/>
+        <text x="879" y="88" text-anchor="middle" fill="#F8FAFC" font-size="18" font-weight="bold">API tierce</text>
+
+        <line x1="160" y1="82" x2="192" y2="82" stroke="#64748B" stroke-width="2" marker-end="url(#arr-pos)"/>
+        <line x1="346" y1="82" x2="378" y2="82" stroke="#64748B" stroke-width="2" marker-end="url(#arr-pos)"/>
+        <line x1="582" y1="82" x2="614" y2="82" stroke="#64748B" stroke-width="2" marker-end="url(#arr-pos)"/>
+        <line x1="768" y1="82" x2="800" y2="82" stroke="#64748B" stroke-width="2" marker-end="url(#arr-pos)"/>
+
+        <g class="fragment">
+            <line x1="482" y1="124" x2="482" y2="170" stroke="#F04444" stroke-width="2" stroke-dasharray="5 4"/>
+            <rect x="212" y="170" width="540" height="140" rx="10" fill="#FFFFFF" stroke="#F04444" stroke-width="1.5"/>
+            <text x="236" y="202" fill="#142B43" font-size="17" font-weight="bold">Décorateur le plus interne de http_client.transport</text>
+            <text x="236" y="234" fill="#526274" font-size="16">→ voit les URLs absolues (après ScopingHttpClient)</text>
+            <text x="236" y="262" fill="#526274" font-size="16">→ voit chaque tentative de RetryableHttpClient</text>
+            <text x="236" y="290" fill="#526274" font-size="16">→ un seul fichier pour tous les clients du test</text>
+        </g>
+    </svg>
+    <aside class="notes">
+        Le recorder est branché au plus près du réseau, comme le mock transport. Tous les clients, par défaut et scopés, passent par lui. Sans attribut sur le test, il est en Passthrough : il laisse tout passer.
+    </aside>
+</section>

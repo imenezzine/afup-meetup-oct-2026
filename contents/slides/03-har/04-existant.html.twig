@@ -1,0 +1,21 @@
+<section>
+    <h2>Symfony savait déjà… rejouer</h2>
+    <pre><code class="language-php" data-trim>
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Test\HarFileResponseFactory;
+
+$client = new MockHttpClient(new HarFileResponseFactory(__DIR__.'/fixtures/api.har'));
+    </code></pre>
+    <ul>
+        <li class="fragment"><code>HarFileResponseFactory</code> existe déjà dans le composant</li>
+        <li class="fragment">Mais le fichier HAR, il faut le produire soi-même</li>
+        <li class="fragment">Il manquait la moitié <b>enregistrement</b></li>
+    </ul>
+    <p class="fragment callout">
+        Le recorder <b>s'appuie sur l'existant</b> :
+        un seul format HAR dans le composant, utilisé pour l'enregistrement comme pour le rejeu.
+    </p>
+    <aside class="notes">
+        Le recorder écrit des fichiers que HarFileResponseFactory sait relire : un seul format, un seul lecteur.
+    </aside>
+</section>

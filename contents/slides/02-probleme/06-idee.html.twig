@@ -1,0 +1,24 @@
+<section>
+    <h2>Et si on enregistrait la réalité ?</h2>
+    <div class="card-row">
+        <div class="card fragment">
+            <h4>1. Enregistrer</h4>
+            <p>Le test fait <b>une fois</b> les vrais appels et sauvegarde chaque couple requête / réponse.</p>
+        </div>
+        <div class="card violet fragment">
+            <h4>2. Commiter</h4>
+            <p>Le fichier d'enregistrement vit avec le test, relu en PR comme du code.</p>
+        </div>
+        <div class="card green fragment">
+            <h4>3. Rejouer</h4>
+            <p>Les exécutions suivantes rejouent les réponses, <b>sans réseau</b>.</p>
+        </div>
+    </div>
+    <p class="fragment callout">
+        L'idée n'est pas nouvelle : <b>php-vcr</b> le fait depuis des années.<br>
+        La PR <b>symfony/symfony#63781</b> l'intègre nativement dans HttpClient et le PHPUnit Bridge.
+    </p>
+    <aside class="notes">
+        C'est le principe du « record and replay », popularisé par VCR en Ruby et php-vcr en PHP. La nouveauté : l'avoir directement dans Symfony, sans dépendance externe.
+    </aside>
+</section>

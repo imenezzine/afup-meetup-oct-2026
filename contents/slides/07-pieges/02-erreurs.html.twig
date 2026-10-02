@@ -1,0 +1,15 @@
+<section>
+    <h3>Enregistrer une réponse d'erreur</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-8|1-2|4-6">
+// Non enregistrée : l'exception consomme la réponse
+$response->getContent();   // ClientException sur un 404
+
+// Enregistrée avec son statut et son corps
+$response->getContent(false);
+$response->toArray(false);
+    </code></pre>
+    <p class="fragment callout warn">
+        Seules les réponses <b>entièrement reçues</b> sont écrites. Une réponse détruite sans être lue, annulée,
+        ou consommée via l'exception n'est pas enregistrée : au rejeu, le test échoue clairement au lieu de recevoir un corps vide.
+    </p>
+</section>

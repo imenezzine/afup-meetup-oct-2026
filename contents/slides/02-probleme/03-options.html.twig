@@ -1,0 +1,42 @@
+<section>
+    <h2>Deux options… pas idéales</h2>
+    <table class="compare">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Vrais appels HTTP</th>
+                <th>Mocks écrits à la main</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Réalisme</td>
+                <td class="good">Réponses réelles</td>
+                <td class="bad">Ce qu'on imagine de l'API</td>
+            </tr>
+            <tr>
+                <td>Vitesse</td>
+                <td class="bad">Lent (réseau)</td>
+                <td class="good">Instantané</td>
+            </tr>
+            <tr>
+                <td>Stabilité en CI</td>
+                <td class="bad">Dépend du tiers (quotas, pannes)</td>
+                <td class="good">Stable</td>
+            </tr>
+            <tr>
+                <td>Secrets</td>
+                <td class="bad">Clés d'API dans la CI</td>
+                <td class="good">Aucun</td>
+            </tr>
+            <tr>
+                <td>Maintenance</td>
+                <td class="meh">Aucune… tant que l'API répond</td>
+                <td class="bad">Fastidieuse, ça dérive</td>
+            </tr>
+        </tbody>
+    </table>
+    <aside class="notes">
+        Les vrais appels : réalistes mais lents, fragiles, et il faut des secrets en CI. Les mocks : rapides mais on finit par tester notre imagination plutôt que l'API.
+    </aside>
+</section>
