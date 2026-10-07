@@ -2,15 +2,52 @@
 @import 'reveal.js/dist/theme/white.css';
 @import 'reveal.js/plugin/highlight/monokai.css';
 
-$navy: #142B43;
-$dark: #0f172a;
-$red: #F04444;
-$violet: #7C3AED;
-$grey: #64748B;
-$green: #059669;
-$danger: #DC2626;
-$amber: #D97706;
-$border: #D9DEE5;
+@import '@fontsource/space-grotesk/400.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/700.css';
+@import '@fontsource/caveat/700.css';
+
+/* Palette « cassette » */
+$cream: #FFF8EC;
+$paper: #FFFDF7;
+$ink: #1F1A17;
+$tape: #2B2321;
+$shell: #3B2F2F;
+$orange: #E8590C;
+$red: #E03131;
+$mustard: #F59F00;
+$teal: #0C8599;
+$green: #2B8A3E;
+$danger: #C92A2A;
+$amber: #E67700;
+$grey: #7A6F66;
+$border: #E6D9C3;
+
+$font-sans: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+$font-mono: 'JetBrains Mono', ui-monospace, monospace;
+$font-marker: 'Caveat', $font-sans;
+
+$retro-shadow: 4px 4px 0 $ink;
+$stripes: linear-gradient(to bottom, $mustard 0 33%, $orange 33% 66%, $red 66% 100%);
+
+:root {
+    --r-background-color: #{$cream};
+    --r-main-font: #{$font-sans};
+    --r-main-color: #{$ink};
+    --r-heading-font: #{$font-sans};
+    --r-heading-color: #{$ink};
+    --r-heading-font-weight: 700;
+    --r-heading-text-transform: none;
+    --r-code-font: #{$font-mono};
+    --r-link-color: #{$orange};
+    --r-link-color-hover: #{$red};
+    --r-selection-background-color: #{$orange};
+}
+
+.reveal-viewport {
+    background: $cream;
+}
 
 figcaption {
     font-size: 0.4em;
@@ -19,14 +56,42 @@ figcaption {
 .reveal h1,
 .reveal h2,
 .reveal h3 {
-    color: $navy;
-    text-transform: none;
+    color: $ink;
+    letter-spacing: -0.02em;
+}
+
+/* Double trait orange sous les titres de slide, comme une étiquette de cassette */
+.reveal .slides > section > section > h2:not(:only-child)::after,
+.reveal .slides > section > section > h3:first-child::after {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 9px;
+    margin: 0.25em auto 0;
+    border-top: 3px solid $orange;
+    border-bottom: 3px solid $orange;
+}
+
+.reveal code {
+    font-family: $font-mono;
+}
+
+.reveal :not(pre) > code {
+    padding: 0 0.2em;
+    background: rgba($orange, 0.1);
+    border-radius: 3px;
 }
 
 .reveal pre {
     width: 100%;
     font-size: 0.42em;
-    box-shadow: none;
+    border: 2px solid $ink;
+    border-radius: 8px;
+    box-shadow: $retro-shadow;
+
+    code {
+        border-radius: 6px;
+    }
 }
 
 .reveal .subtitle {
@@ -35,69 +100,105 @@ figcaption {
 }
 
 .reveal .eyebrow {
-    margin: 0 0 0.3em;
-    color: $red;
-    font-size: 0.5em;
+    display: inline-block;
+    margin: 0 0 0.4em;
+    padding: 0.15em 0.6em;
+    background: $ink;
+    color: $mustard;
+    font-family: $font-mono;
+    font-size: 0.45em;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
+    border-radius: 4px;
 }
 
-/* Titre de chapitre */
+/* Titre de chapitre : compteur de magnétoscope */
 .reveal .chapter-number {
-    color: $red;
-    font-size: 2.4em;
-    font-weight: 800;
-    line-height: 1;
-    margin: 0;
+    display: inline-block;
+    margin: 0 0 0.3em;
+    padding: 0.1em 0.45em;
+    background: $tape;
+    color: $orange;
+    font-family: $font-mono;
+    font-size: 1.8em;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    border-radius: 10px;
+    text-shadow: 0 0 12px rgba($orange, 0.7);
+    box-shadow: $retro-shadow;
+
+    &::before {
+        content: "▶ ";
+        font-size: 0.55em;
+        vertical-align: middle;
+    }
 }
 
 /* Encadrés */
 .reveal .callout {
     margin-top: 1em;
     padding: 0.6em 0.9em;
-    background: #F0FDF4;
-    border-left: 4px solid $green;
+    background: #EBFBEE;
+    border: 2px solid $ink;
+    border-left: 8px solid $green;
+    border-radius: 6px;
+    box-shadow: $retro-shadow;
     font-size: 0.7em;
     text-align: left;
 }
 
 .reveal .callout.warn {
-    background: #FFFBEB;
+    background: #FFF4E6;
     border-left-color: $amber;
 }
 
 .reveal .callout.danger {
-    background: #FEF2F2;
+    background: #FFF5F5;
     border-left-color: $danger;
 }
 
 /* Rangée de cartes */
 .card-row {
     display: flex;
-    gap: 20px;
+    gap: 22px;
     justify-content: center;
     margin-top: 0.8em;
 }
 
 .reveal .card {
+    position: relative;
     flex: 1;
-    padding: 18px 20px;
-    border: 1px solid $border;
-    border-top: 4px solid $red;
+    padding: 26px 20px 18px;
+    background: $paper;
+    border: 2px solid $ink;
     border-radius: 8px;
+    box-shadow: $retro-shadow;
     text-align: left;
+    overflow: hidden;
+
+    /* bande colorée façon étiquette */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background: $orange;
+    }
 
     h4 {
         margin: 0 0 0.4em;
-        color: $navy;
+        color: $ink;
         font-size: 0.7em;
         text-transform: none;
     }
 
     p {
         margin: 0;
-        color: #526274;
+        color: #4A3F3A;
         font-size: 0.55em;
         line-height: 1.4;
     }
@@ -105,25 +206,43 @@ figcaption {
     code {
         font-size: 0.95em;
     }
+
+    p.card-tag {
+        margin: -0.2em 0 0.6em;
+        font-size: 0.42em;
+        white-space: nowrap;
+    }
 }
 
-.reveal .card.green { border-top-color: $green; }
-.reveal .card.violet { border-top-color: $violet; }
-.reveal .card.amber { border-top-color: $amber; }
-.reveal .card.grey { border-top-color: $grey; }
+.reveal .card.green::before { background: $green; }
+.reveal .card.violet::before { background: $teal; }
+.reveal .card.amber::before { background: $mustard; }
+.reveal .card.grey::before { background: $grey; }
 
 /* Tableaux */
 .reveal table.compare {
     font-size: 0.55em;
     margin-top: 0.6em;
+    background: $paper;
+    border: 2px solid $ink;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 8px;
+    box-shadow: $retro-shadow;
+    overflow: hidden;
 
     th {
-        color: $navy;
-        border-bottom: 2px solid $navy;
+        background: $ink;
+        color: $cream;
+        border-bottom: none;
     }
 
     td {
         border-bottom: 1px solid $border;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
     }
 
     .good { color: $green; font-weight: 700; }
@@ -150,6 +269,7 @@ figcaption {
 .reveal .label-before,
 .reveal .label-after {
     margin: 0;
+    font-family: $font-mono;
     font-size: 0.5em;
     font-weight: 700;
     text-transform: uppercase;
@@ -159,7 +279,7 @@ figcaption {
 .reveal .label-before { color: $danger; }
 .reveal .label-after { color: $green; }
 
-/* Frise chronologique */
+/* Frise chronologique : une bande magnétique */
 .reveal .timeline {
     list-style: none;
     margin: 0.4em 0 0;
@@ -170,24 +290,26 @@ figcaption {
     li {
         position: relative;
         padding: 0.3em 0 0.3em 1.6em;
-        border-left: 3px solid $border;
+        border-left: 4px solid $tape;
     }
 
     li::before {
         content: "";
         position: absolute;
-        left: -9px;
-        top: 0.65em;
-        width: 15px;
-        height: 15px;
+        left: -11px;
+        top: 0.6em;
+        width: 14px;
+        height: 14px;
+        border: 2px solid $tape;
         border-radius: 50%;
-        background: $red;
+        background: $orange;
     }
 
     .date {
         display: inline-block;
         min-width: 7.5em;
-        color: $red;
+        color: $orange;
+        font-family: $font-mono;
         font-weight: 700;
     }
 }
@@ -198,9 +320,11 @@ figcaption {
     padding: 0.6em 1em;
     font-size: 0.6em;
     text-align: left;
-    background: #F8FAFC;
-    border-left: 4px solid $violet;
-    box-shadow: none;
+    background: $paper;
+    border: 2px solid $ink;
+    border-left: 8px solid $teal;
+    border-radius: 6px;
+    box-shadow: $retro-shadow;
 
     cite {
         display: block;
@@ -212,71 +336,329 @@ figcaption {
 }
 
 /* Slide speaker */
-.speakers-slide {
-    position: relative;
-    width: 100%;
+.reveal .speaker-layout {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
     height: 100%;
-    box-sizing: border-box;
-    padding: 40px 70px;
     text-align: left;
 }
 
-.speakers-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: calc(100% - 120px);
-}
-
-.speaker-card {
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 20px 50px;
-    text-align: center;
-}
-
-.speaker-photo {
-    width: 160px;
-    height: 160px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 50%;
-    border: 2px solid $red;
-    padding: 5px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-
-.reveal .speaker-content h3 {
+.reveal .speaker-portrait {
+    flex: none;
+    width: 360px;
+    height: 360px;
     margin: 0;
-    color: $navy;
-    font-size: 1.35em;
+    object-fit: cover;
+    border: 6px solid $ink;
+    border-radius: 50%;
+    box-shadow: 8px 8px 0 $orange;
+}
+
+.reveal .speaker-info {
+    h2 {
+        margin: 0;
+        font-size: 1.6em;
+
+        &::after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 9px;
+            margin: 0.2em 0 0;
+            border-top: 3px solid $orange;
+            border-bottom: 3px solid $orange;
+        }
+    }
+}
+
+.reveal .speaker-job {
+    margin: 0.25em 0 0.5em;
+    color: $teal;
+    font-size: 0.85em;
     font-weight: 700;
 }
 
-.speaker-line {
-    width: 55px;
-    height: 4px;
-    background: $red;
-    margin: 12px auto 16px;
-    border-radius: 2px;
-}
-
-.reveal .speaker-role {
+.reveal .speaker-list {
+    display: block;
     margin: 0;
-    color: #526274;
-    font-size: 0.75em;
+    padding: 0;
+    list-style: none;
+    font-size: 0.6em;
+
+    li {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        margin: 0 0 10px;
+        white-space: nowrap;
+    }
+
+    img {
+        flex: none;
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        object-fit: contain;
+    }
 }
 
-.speaker-links {
+.reveal .speaker-company {
+    display: block;
+    width: 260px;
+    margin: 14px 0 0;
+}
+
+/* Remerciements */
+.thanks-row {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 0.8em;
+}
+
+.reveal .thanks-card {
+    flex: 1;
+    max-width: 300px;
+    padding: 24px 18px 18px;
+    background: $paper;
+    border: 2px solid $ink;
+    border-radius: 8px;
+    box-shadow: $retro-shadow;
+
+    img {
+        width: 150px;
+        height: 150px;
+        margin: 0 0 12px;
+        object-fit: cover;
+        border: 4px solid $ink;
+        border-radius: 50%;
+        box-shadow: 4px 4px 0 $orange;
+    }
+
+    h4 {
+        margin: 0;
+        color: $ink;
+        font-size: 0.7em;
+        text-transform: none;
+    }
+
+    p {
+        margin: 0.4em 0 0;
+        color: #4A3F3A;
+        font-size: 0.48em;
+        line-height: 1.35;
+    }
+
+    .thanks-handle {
+        margin-top: 0.2em;
+        color: $orange;
+        font-family: $font-mono;
+        font-weight: 700;
+    }
+}
+
+/* Remerciements à quatre : cartes plus étroites */
+.reveal .thanks-row {
+    gap: 20px;
+    width: 104%;
+    margin-left: -2%;
+}
+
+.reveal .thanks-row .thanks-card {
+    min-width: 0;
+    padding: 22px 10px 16px;
+
+    img {
+        width: 130px;
+        height: 130px;
+    }
+
+    h4 {
+        font-size: 0.58em;
+    }
+
+    .thanks-handle {
+        font-size: 0.42em;
+        white-space: nowrap;
+    }
+}
+
+/* Cassette : slides de titre et de partie */
+.reveal .cassette {
+    width: 78%;
+    margin: 0 auto;
+    padding: 18px 22px 22px;
+    background: $shell;
+    border-radius: 22px;
+    box-shadow: 0 14px 0 -6px #1A1412, inset 0 0 0 3px #4A3D3B;
+}
+
+.reveal .cassette-label {
+    position: relative;
+    padding: 0.35em 0.8em 0.55em;
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 34px, rgba($teal, 0.18) 34px 36px),
+        $cream;
+    border-radius: 8px;
+    text-align: center;
+    overflow: hidden;
+
+    /* rayures années 80 en bas de l'étiquette */
+    &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 16px;
+        background: $stripes;
+    }
+
+    h1, h2 {
+        margin: 0.1em 0 0.25em;
+        color: $ink;
+        font-family: $font-marker;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    h2 {
+        font-size: 2em;
+        line-height: 1.05;
+    }
+
+    h3 {
+        margin: 0 0 0.6em;
+        color: $teal;
+        font-weight: 400;
+    }
+}
+
+.reveal .cassette-side {
+    display: inline-block;
+    margin: 0;
+    padding: 0.1em 0.5em;
+    background: $ink;
+    color: $mustard;
+    font-family: $font-mono;
+    font-size: 0.45em;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.reveal .cassette-window {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
     margin-top: 16px;
-    color: #526274;
-    font-size: 0.65em;
+    padding: 12px 20px;
+    background: #1A1412;
+    border-radius: 60px;
+}
+
+.reveal .reel {
+    flex: none;
+    width: 74px;
+    height: 74px;
+    background:
+        radial-gradient(circle, $paper 0 9px, transparent 10px),
+        repeating-conic-gradient($paper 0 12deg, transparent 12deg 60deg),
+        radial-gradient(circle, #6B5E55 0 34px, transparent 35px);
+    border: 4px solid $paper;
+    border-radius: 50%;
+    animation: reel-spin 3s linear infinite;
+}
+
+@keyframes reel-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal .reel { animation: none; }
+}
+
+.reveal .part-gif {
+    display: block;
+    max-width: 62%;
+    max-height: 300px;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.reveal .gif-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55%;
+    height: 240px;
+    border: 3px dashed #7A6F66;
+    border-radius: 10px;
+    color: #BFB3A6;
+    font-size: 0.5em;
+}
+
+/* Badge PLAY / REC, en haut à gauche, comme l'écran d'un caméscope */
+.vcr-badge {
+    position: fixed;
+    top: 18px;
+    left: 24px;
+    z-index: 30;
+    padding: 4px 12px;
+    background: rgba($tape, 0.9);
+    color: $paper;
+    font-family: $font-mono;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 6px;
+
+    .vcr-rec {
+        display: none;
+        color: #FF6B6B;
+    }
+}
+
+.reveal-viewport.rec .vcr-badge {
+    .vcr-play { display: none; }
+    .vcr-rec {
+        display: inline;
+        animation: rec-blink 1.2s steps(2, start) infinite;
+    }
+}
+
+@keyframes rec-blink {
+    to { visibility: hidden; }
+}
+
+/* Progression et numéro de slide : bande et compteur */
+.reveal .progress {
+    height: 8px;
+    background: $tape;
+    color: $orange;
+
+    span {
+        background: repeating-linear-gradient(-45deg, $orange 0 10px, $mustard 10px 20px);
+    }
+}
+
+.reveal .slide-number {
+    right: auto;
+    left: 24px;
+    bottom: 20px;
+    padding: 4px 10px;
+    background: $tape;
+    color: $orange;
+    font-family: $font-mono;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border-radius: 6px;
+
+    a {
+        color: inherit;
+    }
 }

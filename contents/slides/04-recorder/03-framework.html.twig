@@ -1,19 +1,20 @@
 <section>
     <p class="eyebrow">Étape 2</p>
-    <h3>Activer le recorder en environnement de test</h3>
+    <h3>Activer le recorder en test</h3>
     <pre><code class="language-yaml" data-trim>
-# config/packages/framework.yaml
+# config/packages/http_client.yaml
 when@test:
-    framework:
-        http_client:
-            recorder:
-                enabled: true
+    http_client:
+        recorder: true
     </code></pre>
     <p class="fragment callout">
         Le recorder décore <code>http_client.transport</code>, au plus près du réseau :
         <b>tous</b> les clients (par défaut et scopés) sont enregistrés, avec des URLs absolues, dans un seul fichier par test.
     </p>
+    <p class="fragment callout warn">
+        Sans cette ligne, <code>#[UseRecord]</code> n'a aucun client à piloter : le test part sur le réseau.
+    </p>
     <aside class="notes">
-        Sans attribut sur le test, et hors PHPUnit, le recorder est en mode Passthrough : il ne fait rien de spécial.
+        Depuis Symfony 8.2, la configuration du client HTTP vit dans HttpClientBundle : la clé racine est http_client, plus framework. Le recorder est opt-in : il a brièvement été activé automatiquement en env test, mais Nicolas l'a retiré, ce serait une première dans le code de Symfony. Sans attribut sur le test, et hors PHPUnit, il est en Passthrough.
     </aside>
 </section>

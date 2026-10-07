@@ -1,32 +1,31 @@
-<section class="speakers-slide">
-    <div class="speakers-container">
-        <div class="speaker-card">
-            <img
-                    class="speaker-photo"
-                    src="{{ asset('images/imenezzine.jpg') }}"
-                    alt="Imen EZZINE"
-            >
+<section class="speaker-slide">
+    <div class="speaker-layout">
+        <img class="speaker-portrait" src="{{ asset('images/imenezzine-conf.png') }}" alt="Imen Ezzine en conférence">
 
-            <div class="speaker-content">
-                <h3>Imen EZZINE</h3>
+        <div class="speaker-info">
+            <h2>Imen EZZINE</h2>
+            <p class="speaker-job">Développeuse PHP Symfony</p>
 
-                <div class="speaker-line"></div>
+            <ul class="speaker-list">
+                <li>
+                    <img src="{{ asset('images/icon-youtube.png') }}" alt="YouTube">
+                    <span>Café Tech avec Imen</span>
+                </li>
+                <li>
+                    <img src="{{ asset('images/icon-symfony-tunisie.png') }}" alt="Mascotte Symfony avec le drapeau tunisien">
+                    <span>Communauté de Symfony en Tunisie</span>
+                </li>
+                <li>
+                    <img src="{{ asset('images/icon-linkedin.png') }}" alt="LinkedIn">
+                    <span>Imen Ezzine</span>
+                </li>
+                <li>
+                    <img src="{{ asset('images/icon-medium.png') }}" alt="Medium">
+                    <span>@imenezzine</span>
+                </li>
+            </ul>
 
-                <p class="speaker-role">
-                    Développeuse<br>PHP Symfony
-                </p>
-
-                <div class="speaker-links">
-                    <span>☕ Café Tech avec Imen</span>
-                    <span>GitHub : @imenezzine</span>
-                </div>
-            </div>
+            <img class="speaker-company" src="{{ asset('images/sensiolabs-createur-symfony.png') }}" alt="SensioLabs, créateur de Symfony">
         </div>
     </div>
-
-    <img
-            src="{{ asset('images/sensiolabs-logo.png') }}"
-            alt="Logo SensioLabs"
-            style="max-width: 180px; display: block; margin: 0 auto;"
-    >
 </section>

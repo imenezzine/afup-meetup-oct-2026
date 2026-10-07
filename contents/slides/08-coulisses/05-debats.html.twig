@@ -1,0 +1,18 @@
+<section>
+    <h3>Deux débats qui ont façonné l'API</h3>
+    <div class="card-row">
+        <div class="card violet fragment">
+            <h4>Enum ou constantes ?</h4>
+            <p>Garder une liste ouverte pour de futurs modes ? Tant que le client implémente lui-même chaque mode, une liste fermée est plus honnête. Au final : <code>enum RecorderMode: string</code>, dont les valeurs sont celles de <code>SYMFONY_HTTP_RECORDER</code>.</p>
+        </div>
+        <div class="card amber fragment">
+            <h4>Attribut ou variable d'env ?</h4>
+            <p>Un mode d'enregistrement n'a jamais vocation à être commité. L'attribut nomme le fichier, <code>SYMFONY_HTTP_RECORDER</code> décide au lancement.</p>
+        </div>
+    </div>
+    <blockquote class="review fragment" style="margin-top: 0.8em;">
+        The attribute names the file and committed tests always replay […]
+        Selecting tests is what <code>--filter</code> and <code>--group</code> are for, and you review the changed HAR files before committing.
+        <cite>Nicolas Grekas, tranchant la proposition de @HypeMC (5 oct. 2026)</cite>
+    </blockquote>
+</section>

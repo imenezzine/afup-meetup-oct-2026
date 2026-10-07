@@ -16,6 +16,6 @@ $client = new MockHttpClient(new HarFileResponseFactory(__DIR__.'/fixtures/api.h
         un seul format HAR dans le composant, utilisé pour l'enregistrement comme pour le rejeu.
     </p>
     <aside class="notes">
-        Le recorder écrit des fichiers que HarFileResponseFactory sait relire : un seul format, un seul lecteur.
+        Le recorder écrit des fichiers que HarFileResponseFactory sait relire : un seul format, un seul lecteur. Son API ne change pas. Un fichier écrit par le recorder contient des valeurs masquées : on le rejoue avec RecorderHttpClient en mode replay plutôt qu'avec la factory. Seul changement pour l'existant : les entrées répétées sont rejouées dans l'ordre.
     </aside>
 </section>

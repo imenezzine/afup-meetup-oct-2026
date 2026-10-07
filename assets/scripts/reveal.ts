@@ -12,7 +12,7 @@ import Zoom from 'reveal.js/plugin/zoom/zoom.esm.js';
 import Notes from 'reveal.js/plugin/notes/notes.esm.js';
 
 const deck = new Reveal({
-    slideNumber: true,
+    slideNumber: 'c/t',
     history: true,
     plugins: [
         Markdown,
