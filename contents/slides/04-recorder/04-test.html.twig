@@ -1,6 +1,6 @@
 <section data-state="rec">
     <p class="eyebrow">Étape 3</p>
-    <h3>Annoter, puis enregistrer une fois</h3>
+    <h3>Poser l'attribut, puis enregistrer une fois</h3>
     <pre><code class="language-php" data-trim data-line-numbers="1-15|6|9-12">
 use Symfony\Bridge\PhpUnit\Attribute\UseRecord;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -23,7 +23,7 @@ SYMFONY_HTTP_RECORDER=missing vendor/bin/phpunit --filter testRandom
     <ol style="font-size: 0.55em;">
         <li class="fragment">Vrais appels, écriture de <code>GetRandomControllerTest/testRandom.har</code></li>
         <li class="fragment">On relit le fichier, on le commite</li>
-        <li class="fragment">Lancements suivants, CI comprise : rejeu, zéro réseau</li>
+        <li class="fragment">Lancements suivants et CI : <code>SYMFONY_HTTP_RECORDER=replay</code> (le défaut si elle n'est pas définie), rejeu, zéro réseau</li>
     </ol>
     <aside class="notes">
         L'attribut ne fait que nommer le fichier. Enregistrer se décide au moment où on lance les tests, avec la variable d'environnement : rien de ce qui touche le réseau ne peut être commité par erreur. Le fichier est créé à côté du test, dans un dossier au nom de la classe. Autres formes : un nom de fichier relatif au test (ou à http-recorder-directory s'il est défini), un chemin absolu, l'attribut sur la classe (celui de la méthode gagne). Avec un data provider, un fichier par jeu de données : testRandom@dataSetName.har. Hors PHPUnit, on construit le client à la main avec une RecorderConfiguration ; deux points d'extension : RecorderConfigurationInterface et RedactorInterface.
