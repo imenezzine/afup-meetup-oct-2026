@@ -1,0 +1,20 @@
+<section>
+    <h3>Adapter à votre API</h3>
+    <pre><code class="language-yaml" data-trim data-line-numbers="1-8|3-4|5-6|7-8">
+http_client:
+    recorder:
+        # headers, query string, formulaires et JSON : ajoutés aux listes intégrées
+        redact: ['X-Custom-Secret', 'sig', 'pin']
+        # jamais masqués, retirés des listes intégrées
+        redact_except: ['code']
+        # ou remplacer complètement le masquage
+        redactor: ~                 # service RedactorInterface
+    </code></pre>
+    <p class="fragment subtitle" style="font-size: 0.6em;">
+        <code>redact_except</code> : quand <code>code</code> n'est pas un secret dans vos tests, mais que vous en avez besoin.
+    </p>
+    <p class="fragment callout">
+        Un champ qui change à chaque requête (timestamp, nonce, request id) ? Ajoutez-le à <code>redact</code> :
+        masqué des deux côtés, il est aussi <b>ignoré au matching</b>.
+    </p>
+</section>

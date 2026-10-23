@@ -1,0 +1,26 @@
+<section>
+    <h3>HAR : HTTP Archive</h3>
+    <p class="subtitle" style="font-size: 0.55em;">Le JSON du W3C pour archiver des échanges HTTP : lisible, relu en PR comme du code, ouvert par les devtools</p>
+    <pre><code class="language-json" data-trim data-line-numbers="1-20|3-9|6-8|10-18|14-17">
+{
+  "startedDateTime": "2026-09-03T14:07:14.638Z",
+  "request": {
+    "method": "POST",
+    "url": "https://auth.example.com/oauth/token",
+    "postData": {
+      "text": "grant_type=client_credentials&amp;client_secret=%5BREDACTED%5D"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": [
+      {"name": "content-type", "value": "application/json"}
+    ],
+    "content": {
+      "mimeType": "application/json",
+      "text": "{\"access_token\":\"[REDACTED]\",\"expires_in\":3600}"
+    }
+  }
+}
+    </code></pre>
+</section>

@@ -1,0 +1,11 @@
+<section>
+    <h3>Ce qui est masqué est rejoué masqué</h3>
+    <pre style="font-size: 0.45em;"><code class="language-json" data-trim>
+{"access_token":"[REDACTED]","id_token":"[REDACTED]","token_type":"Bearer"}
+    </code></pre>
+    <ul style="font-size: 0.65em;">
+        <li class="fragment">Un test qui vérifie la signature d'un <code>id_token</code> rejoué va échouer</li>
+        <li class="fragment">Solution : <code>redact_except</code>, ou votre propre <code>RedactorInterface</code></li>
+        <li class="fragment">Et dans ce cas : relisez le fichier avant de le commiter</li>
+    </ul>
+</section>

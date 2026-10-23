@@ -1,0 +1,34 @@
+<section>
+    <h3>Ce que la revue a changé</h3>
+    <table class="compare" style="font-size: 0.55em;">
+        <thead>
+            <tr>
+                <th style="width: 18%"></th>
+                <th>Première version</th>
+                <th>Aujourd'hui</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="fragment">
+                <td>Secrets</td>
+                <td class="bad"><code>Authorization</code>, cookies, tokens écrits tels quels</td>
+                <td class="good">Masqués par défaut, requête et réponse</td>
+            </tr>
+            <tr class="fragment">
+                <td>Entrée absente</td>
+                <td class="bad">Vrai appel réseau par défaut, en silence</td>
+                <td class="good">Exception, jamais de réseau</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>stream()</code></td>
+                <td class="bad">Cassé, et <code>getContent()</code> sérialisait les requêtes</td>
+                <td class="good"><code>AsyncResponse</code>, enregistrement au fil des chunks</td>
+            </tr>
+            <tr class="fragment">
+                <td>Options</td>
+                <td class="bad"><code>timeout: 5</code> devenait 60 s en enregistrement</td>
+                <td class="good">Options d'origine transmises telles quelles</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

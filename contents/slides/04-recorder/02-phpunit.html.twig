@@ -1,0 +1,17 @@
+<section>
+    <p class="eyebrow">Étape 1</p>
+    <h3>Déclarer l'extension PHPUnit</h3>
+    <pre><code class="language-xml" data-trim data-line-numbers="1-7|3|4-5">
+&lt;!-- phpunit.dist.xml --&gt;
+&lt;extensions&gt;
+    &lt;bootstrap class="Symfony\Bridge\PhpUnit\SymfonyExtension"&gt;
+        &lt;!-- optionnel : tous les enregistrements dans un seul dossier --&gt;
+        &lt;parameter name="http-recorder-directory" value="tests/records"/&gt;
+    &lt;/bootstrap&gt;
+&lt;/extensions&gt;
+    </code></pre>
+    <p class="subtitle" style="font-size: 0.6em;">
+        Sans le paramètre, chaque <code>.har</code> vit à côté de son test.
+        Avec, l'arborescence suit le namespace : <code>tests/records/App/Tests/FooTest/testBar.har</code>
+    </p>
+</section>

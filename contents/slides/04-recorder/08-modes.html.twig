@@ -1,0 +1,40 @@
+<section>
+    <h2>Rejouer ou enregistrer ?</h2>
+    <table class="compare" style="font-size: 0.46em;">
+        <thead>
+            <tr>
+                <th style="width: 30%"><code>SYMFONY_HTTP_RECORDER</code></th>
+                <th>Comportement</th>
+                <th style="width: 28%">Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="fragment">
+                <td><i>(vide)</i> ou <code>replay</code></td>
+                <td>Rejoue le <code>.har</code>. Aucune entrée trouvée : <code>HarEntryNotFoundException</code>, <b>jamais de réseau</b></td>
+                <td>Défaut, CI</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>missing</code></td>
+                <td>Rejoue ; si l'entrée manque, fait le vrai appel et l'ajoute au fichier</td>
+                <td>Premier enregistrement, nouvel appel</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>record</code></td>
+                <td>Toujours le vrai appel ; réécrit les fichiers des tests lancés</td>
+                <td>Rafraîchir après un changement d'API</td>
+            </tr>
+            <tr class="fragment">
+                <td><code>passthrough</code></td>
+                <td>Vrais appels, sans lire ni écrire les <code>.har</code></td>
+                <td>Vérifier les tests contre les vrais services</td>
+            </tr>
+        </tbody>
+    </table>
+    <pre class="fragment" style="font-size: 0.42em; margin: 0.5em auto;"><code class="language-bash" data-trim>
+SYMFONY_HTTP_RECORDER=record vendor/bin/phpunit --group payment
+    </code></pre>
+    <p class="fragment callout" style="font-size: 0.6em; margin-top: 0.6em;">
+        <b>Fail closed</b> : un test commité ne touche <b>jamais</b> le réseau. Enregistrer est un choix explicite, au lancement.
+    </p>
+</section>

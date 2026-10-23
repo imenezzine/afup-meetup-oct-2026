@@ -1,0 +1,25 @@
+<section>
+    <h2>Symfony savait déjà… rejouer</h2>
+    <pre><code class="language-php" data-trim>
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Test\HarFileResponseFactory;
+
+$client = new MockHttpClient(new HarFileResponseFactory(__DIR__.'/fixtures/api.har'));
+    </code></pre>
+    <div class="card-row">
+        <div class="card green fragment">
+            <h4>▶ Rejouer</h4>
+            <p class="card-tag"><code>HarFileResponseFactory</code></p>
+            <p>Déjà dans le composant</p>
+        </div>
+        <div class="card grey fragment">
+            <h4>● Enregistrer</h4>
+            <p class="card-tag">à faire soi-même</p>
+            <p>Exporter depuis le navigateur, retirer les secrets à la main</p>
+        </div>
+    </div>
+    <p class="fragment callout" style="font-size: 0.6em;">
+        <code>RecorderHttpClient</code> apporte la moitié manquante, et écrit des fichiers que
+        <code>HarFileResponseFactory</code> sait déjà lire : <b>un seul format, un seul lecteur</b>.
+    </p>
+</section>

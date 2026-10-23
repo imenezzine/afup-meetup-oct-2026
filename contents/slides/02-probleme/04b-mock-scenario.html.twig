@@ -1,0 +1,90 @@
+<section>
+    <pre style="font-size: 0.155em; line-height: 1.15; margin: 0;"><code class="language-php" data-trim style="max-height: none;">
+class PaymentServiceTest extends TestCase
+{
+    private const API = 'https://api.payment.example.com/v1';
+
+    public function testPaymentRequiringAuthenticationThenPartialRefund(): void
+    {
+        $client = new MockHttpClient([
+            function (string $method, string $url, array $options): MockResponse {
+                $this-&gt;assertSame('POST', $method);
+                $this-&gt;assertSame(self::API.'/customers', $url);
+                $this-&gt;assertSame('email=jane%40example.com&amp;name=Jane+Doe&amp;metadata%5Border_id%5D=1337', $options['body']);
+                $this-&gt;assertSame('Authorization: Bearer sk_test_123', $options['normalized_headers']['authorization'][0]);
+                $this-&gt;assertSame('Idempotency-Key: order-1337-customer', $options['normalized_headers']['idempotency-key'][0]);
+
+                return new MockResponse(json_encode([
+                    'id' =&gt; 'cus_123', 'object' =&gt; 'customer', 'created' =&gt; 1760000000, 'email' =&gt; 'jane@example.com', 'name' =&gt; 'Jane Doe',
+                    'balance' =&gt; 0, 'currency' =&gt; null, 'default_source' =&gt; null, 'delinquent' =&gt; false, 'description' =&gt; null, 'discount' =&gt; null,
+                    'invoice_prefix' =&gt; 'A1B2C3', 'invoice_settings' =&gt; ['custom_fields' =&gt; null, 'default_payment_method' =&gt; null, 'footer' =&gt; null],
+                    'livemode' =&gt; false, 'metadata' =&gt; ['order_id' =&gt; '1337'], 'phone' =&gt; null, 'preferred_locales' =&gt; [], 'shipping' =&gt; null, 'tax_exempt' =&gt; 'none',
+                ]), ['http_code' =&gt; 200, 'response_headers' =&gt; ['content-type' =&gt; 'application/json', 'request-id' =&gt; 'req_1']]);
+            },
+            function (string $method, string $url, array $options): MockResponse {
+                $this-&gt;assertSame('POST', $method);
+                $this-&gt;assertSame(self::API.'/payment_intents', $url);
+                $this-&gt;assertSame('amount=4200&amp;currency=eur&amp;customer=cus_123&amp;payment_method=pm_card_3ds&amp;confirm=true&amp;return_url=https%3A%2F%2Fshop.example.com%2Freturn', $options['body']);
+                $this-&gt;assertSame('Idempotency-Key: order-1337-payment', $options['normalized_headers']['idempotency-key'][0]);
+
+                return new MockResponse(json_encode([
+                    'id' =&gt; 'pay_123', 'object' =&gt; 'payment_intent', 'amount' =&gt; 4200, 'amount_capturable' =&gt; 0, 'amount_received' =&gt; 0, 'currency' =&gt; 'eur',
+                    'customer' =&gt; 'cus_123', 'status' =&gt; 'requires_action', 'capture_method' =&gt; 'automatic', 'confirmation_method' =&gt; 'automatic',
+                    'client_secret' =&gt; 'pay_123_secret_456', 'created' =&gt; 1760000001, 'livemode' =&gt; false, 'payment_method' =&gt; 'pm_card_3ds',
+                    'next_action' =&gt; ['type' =&gt; 'redirect_to_url', 'redirect_to_url' =&gt; ['url' =&gt; 'https://hooks.payment.example.com/3ds/pay_123', 'return_url' =&gt; 'https://shop.example.com/return']],
+                    'payment_method_options' =&gt; ['card' =&gt; ['request_three_d_secure' =&gt; 'automatic', 'installments' =&gt; null, 'mandate_options' =&gt; null, 'network' =&gt; null]],
+                    'payment_method_types' =&gt; ['card'], 'last_payment_error' =&gt; null, 'latest_charge' =&gt; null, 'metadata' =&gt; [], 'setup_future_usage' =&gt; null,
+                ]), ['http_code' =&gt; 200, 'response_headers' =&gt; ['content-type' =&gt; 'application/json', 'request-id' =&gt; 'req_2']]);
+            },
+            function (string $method, string $url, array $options): MockResponse {
+                $this-&gt;assertSame('GET', $method);
+                $this-&gt;assertSame(self::API.'/payment_intents/pay_123?expand%5B0%5D=latest_charge', $url);
+
+                return new MockResponse(json_encode([
+                    'id' =&gt; 'pay_123', 'object' =&gt; 'payment_intent', 'amount' =&gt; 4200, 'amount_received' =&gt; 4200, 'currency' =&gt; 'eur', 'status' =&gt; 'succeeded',
+                    'latest_charge' =&gt; [
+                        'id' =&gt; 'ch_789', 'object' =&gt; 'charge', 'amount' =&gt; 4200, 'amount_captured' =&gt; 4200, 'amount_refunded' =&gt; 0, 'captured' =&gt; true, 'paid' =&gt; true,
+                        'balance_transaction' =&gt; 'txn_321', 'billing_details' =&gt; ['address' =&gt; ['city' =&gt; 'Paris', 'country' =&gt; 'FR', 'line1' =&gt; null, 'postal_code' =&gt; '75002'], 'email' =&gt; 'jane@example.com'],
+                        'outcome' =&gt; ['network_status' =&gt; 'approved_by_network', 'reason' =&gt; null, 'risk_level' =&gt; 'normal', 'risk_score' =&gt; 12, 'seller_message' =&gt; 'Payment complete.', 'type' =&gt; 'authorized'],
+                        'payment_method_details' =&gt; ['type' =&gt; 'card', 'card' =&gt; ['brand' =&gt; 'visa', 'country' =&gt; 'FR', 'exp_month' =&gt; 12, 'exp_year' =&gt; 2030, 'funding' =&gt; 'credit', 'last4' =&gt; '3184',
+                            'three_d_secure' =&gt; ['authentication_flow' =&gt; 'challenge', 'result' =&gt; 'authenticated', 'version' =&gt; '2.2.0'], 'network' =&gt; 'visa']],
+                        'receipt_url' =&gt; 'https://pay.example.com/receipts/ch_789', 'refunded' =&gt; false, 'refunds' =&gt; ['object' =&gt; 'list', 'data' =&gt; [], 'has_more' =&gt; false],
+                    ],
+                    'next_action' =&gt; null, 'last_payment_error' =&gt; null, 'customer' =&gt; 'cus_123', 'livemode' =&gt; false, 'metadata' =&gt; [],
+                ]), ['http_code' =&gt; 200, 'response_headers' =&gt; ['content-type' =&gt; 'application/json', 'request-id' =&gt; 'req_3']]);
+            },
+            function (string $method, string $url, array $options): MockResponse {
+                $this-&gt;assertSame('POST', $method);
+                $this-&gt;assertSame(self::API.'/refunds', $url);
+                $this-&gt;assertSame('payment_intent=pay_123&amp;amount=1500&amp;reason=requested_by_customer&amp;metadata%5Border_id%5D=1337', $options['body']);
+
+                return new MockResponse(json_encode([
+                    'id' =&gt; 're_654', 'object' =&gt; 'refund', 'amount' =&gt; 1500, 'balance_transaction' =&gt; 'txn_987', 'charge' =&gt; 'ch_789', 'created' =&gt; 1760000420,
+                    'currency' =&gt; 'eur', 'destination_details' =&gt; ['type' =&gt; 'card', 'card' =&gt; ['reference' =&gt; '7412589630', 'reference_status' =&gt; 'available', 'reference_type' =&gt; 'acquirer_reference_number', 'type' =&gt; 'refund']],
+                    'metadata' =&gt; ['order_id' =&gt; '1337'], 'payment_intent' =&gt; 'pay_123', 'reason' =&gt; 'requested_by_customer', 'receipt_number' =&gt; null, 'status' =&gt; 'succeeded',
+                ]), ['http_code' =&gt; 200, 'response_headers' =&gt; ['content-type' =&gt; 'application/json', 'request-id' =&gt; 'req_4']]);
+            },
+            new MockResponse('{"error":{"type":"rate_limit_error","code":"rate_limit","message":"Too many requests, please retry later."}}', ['http_code' =&gt; 429, 'response_headers' =&gt; ['retry-after' =&gt; '1']]),
+            new MockResponse('{"object":"list","data":[{"id":"re_654","amount":1500,"status":"succeeded"}],"has_more":false,"url":"/v1/refunds"}', ['http_code' =&gt; 200]),
+        ]);
+
+        $service = new PaymentService($client, 'sk_test_123', new NullLogger());
+
+        $payment = $service-&gt;pay(new Order(1337, 4200, 'eur', new Customer('jane@example.com', 'Jane Doe')), 'pm_card_3ds');
+        $this-&gt;assertSame('requires_action', $payment-&gt;status);
+        $this-&gt;assertSame('https://hooks.payment.example.com/3ds/pay_123', $payment-&gt;redirectUrl);
+
+        $this-&gt;assertSame('succeeded', $service-&gt;refresh($payment)-&gt;status);
+        $this-&gt;assertSame('succeeded', $service-&gt;refund($payment, 1500)-&gt;status);
+        $this-&gt;assertCount(1, $service-&gt;refunds($payment));
+        $this-&gt;assertSame(6, $client-&gt;getRequestsCount());
+    }
+}
+    </code></pre>
+    <img
+            class="fragment"
+            src="{{ asset('images/trop-petit-pour-lire.gif') }}"
+            alt="Ken Jeong dans Community plisse les yeux pour lire un minuscule bout de papier"
+            style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 55%; margin: 0;"
+    >
+</section>

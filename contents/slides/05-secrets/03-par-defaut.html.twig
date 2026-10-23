@@ -1,0 +1,22 @@
+<section>
+    <h2>Masqué par défaut</h2>
+    <div class="card-row">
+        <div class="card fragment">
+            <h4>Headers</h4>
+            <p><code>Authorization</code>, <code>Proxy-Authorization</code>, <code>Cookie</code>, <code>Set-Cookie</code>, <code>DPoP</code>, <code>X-Api-Key</code>, <code>X-Auth-Token</code></p>
+        </div>
+        <div class="card violet fragment">
+            <h4>Query, formulaires, JSON</h4>
+            <p>Registre IANA OAuth, OpenID Connect, SAML : <code>access_token</code>, <code>refresh_token</code>, <code>id_token</code>, <code>client_secret</code>, <code>SAMLResponse</code>…</p>
+        </div>
+        <div class="card amber fragment">
+            <h4>Noms courants</h4>
+            <p><code>password</code>, <code>secret</code>, <code>token</code>, <code>api_key</code></p>
+            <p style="font-size: 0.8em;"><code>code</code> et <code>key</code> : query string et formulaires seulement, pas en JSON</p>
+        </div>
+    </div>
+    <p class="fragment subtitle" style="margin-top: 1em; font-size: 0.6em;">
+        + les fragments d'URL et le header <code>Location</code>, traités comme des URLs.
+        Sur la requête <b>et</b> sur la réponse, <b>avant</b> toute écriture.
+    </p>
+</section>

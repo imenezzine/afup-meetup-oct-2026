@@ -1,0 +1,13 @@
+[modules.typescript-sdk]
+source = "dagger.io/sdk/typescript"
+
+[sdks.typescript]
+module = "typescript-sdk"
+
+[modules.afup-meetup-oct-2026]
+entrypoint = true
+source = ".dagger"
+
+[sdks.typescript.scopes.".dagger"]
+is-module = true
+name = "afup-meetup-oct-2026"

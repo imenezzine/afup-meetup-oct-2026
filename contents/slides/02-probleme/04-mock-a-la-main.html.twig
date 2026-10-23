@@ -1,0 +1,20 @@
+<section>
+    <h3>Le mock écrit à la main</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-14|4-9|8">
+$client = new MockHttpClient([
+    new MockResponse(
+        json_encode([
+            'id' => 'pay_123',
+            'status' => 'succeeded',
+            'amount' => 4200,
+            'currency' => 'eur',
+            // ... et les 40 autres champs de la vraie réponse ?
+        ]),
+        ['http_code' => 200, 'response_headers' => ['content-type' => 'application/json']],
+    ),
+]);
+
+$service = new PaymentService($client);
+    </code></pre>
+    <p class="fragment subtitle">Fastidieux à écrire, et rien ne garantit que ça ressemble encore à l'API.</p>
+</section>

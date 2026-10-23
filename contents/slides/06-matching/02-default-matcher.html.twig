@@ -1,0 +1,13 @@
+<section>
+    <h2>Reconnaître une requête</h2>
+    <div class="card-row">
+        <div class="card fragment"><h4>Méthode</h4><p><code>GET</code>, <code>POST</code>…</p></div>
+        <div class="card violet fragment"><h4>URL</h4><p>Absolue, query string comprise</p></div>
+        <div class="card green fragment"><h4>Body</h4><p>Quand c'est une chaîne ; un body streamé n'est pas comparé</p></div>
+    </div>
+    <p class="fragment callout">
+        Les requêtes sont d'abord <b>normalisées</b> comme le fait HttpClient : <code>json</code>, <code>query</code>,
+        <code>base_uri</code>, <code>auth_basic</code>, <code>auth_bearer</code>… se retrouvent dans l'URL, le body et les headers enregistrés.
+    </p>
+    <p class="fragment subtitle" style="font-size: 0.6em;">Secrets masqués des deux côtés, et la frontière aléatoire d'un body multipart remplacée par une valeur fixe.</p>
+</section>

@@ -1,0 +1,15 @@
+<section>
+    <h3>Actif par défaut en test… et désactivable</h3>
+    <pre><code class="language-yaml" data-trim>
+# config/packages/http_client.yaml
+http_client:
+    recorder: false
+    </code></pre>
+    <ul style="font-size: 0.65em;">
+        <li class="fragment">Activé quand <code>framework.test</code> vaut <code>true</code>, désactivé sinon</li>
+        <li class="fragment">Une valeur explicite l'emporte toujours : <code>recorder: false</code> le coupe, même en test</li>
+    </ul>
+    <p class="fragment callout">
+        Sans <code>#[UseRecord]</code>, le recorder ne fait rien : l'activer dans tous les tests est <b>sans risque</b>.
+    </p>
+</section>

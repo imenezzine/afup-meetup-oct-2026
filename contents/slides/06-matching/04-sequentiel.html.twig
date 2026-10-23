@@ -1,0 +1,16 @@
+<section>
+    <h3>Même requête, réponses différentes</h3>
+    <pre><code class="language-php" data-trim data-line-numbers="1-7|2-3|5-6">
+// Enregistré : un export asynchrone qu'on interroge jusqu'à ce qu'il soit prêt
+$client->request('GET', 'https://api.example.com/exports/42')->toArray(); // 202
+$client->request('GET', 'https://api.example.com/exports/42')->toArray(); // 200
+
+// Au rejeu : 202, puis 200, puis 200 (la dernière réponse est resservie)
+// Avec SYMFONY_HTTP_RECORDER=missing : une entrée enregistrée compte comme déjà servie
+    </code></pre>
+    <ul style="font-size: 0.65em;">
+        <li class="fragment">Les entrées sont <b>ajoutées</b> dans l'ordre, jamais écrasées, et rejouées <b>dans l'ordre</b></li>
+        <li class="fragment">Le curseur de rejeu appartient <b>au test</b>, pas au client : il survit au reboot du kernel par <code>KernelBrowser</code></li>
+        <li class="fragment"><code>RetryableHttpClient</code> annule la tentative ratée : un 500 puis 200 n'enregistre que le 200</li>
+    </ul>
+</section>
